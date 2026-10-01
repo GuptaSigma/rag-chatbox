@@ -7,6 +7,6 @@ pydantic
 pypdf
 langchain-text-splitters
 python-multipart
-google-genai
 python-dotenv
 rank-bm25
+langgraph
