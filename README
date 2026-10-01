@@ -1,0 +1,33 @@
+# 🤖 Production-Ready Mini RAG API with FastAPI & FAISS
+
+A high-performance, persistent Retrieval-Augmented Generation (RAG) backend built using **FastAPI**, **Sentence Transformers**, **FAISS**, and **Google Gemini API**. 
+
+This system allows users to upload documents (PDF/TXT), automatically chunks and embeds them, stores vectors persistently on disk, and answers user queries with context-grounded AI responses.
+
+---
+
+## 🌟 Key Features
+
+- 📄 **Multi-Format Document Parsing:** Upload PDF and TXT files directly via API endpoints using `pypdf`.
+- ✂️ **Smart Text Chunking:** Implements `RecursiveCharacterTextSplitter` (500 chars, 50 overlap) for context-aware embeddings.
+- ⚡ **Fast Vector Search:** Uses Facebook AI Similarity Search (**FAISS**) with 384-dimensional dense vectors (`all-MiniLM-L6-v2`).
+- 💾 **Persistent Disk Storage:** Automatically syncs vector indexes and text chunks to disk (`faiss_index.bin` & `documents.pkl`), keeping data safe across server restarts.
+- 🧠 **Context-Grounded LLM Responses:** Integrates Google's **Gemini 2.5 Flash** model (`google-genai` SDK) to prevent hallucinations and answer strictly based on retrieved context.
+- 🚀 **Interactive Swagger API Docs:** Built with FastAPI for automated, interactive documentation and easy API testing.
+
+---
+
+## 🛠️ Tech Stack
+
+- **Framework:** FastAPI, Uvicorn
+- **Embedding Model:** SentenceTransformers (`all-MiniLM-L6-v2`)
+- **Vector Database:** FAISS (Facebook AI Similarity Search)
+- **LLM Integration:** Google Gemini API (`google-genai`)
+- **Document Processing:** PyPDF, LangChain Text Splitters
+
+---
+
+## 🚀 Quickstart Guide
+
+### 1. Clone the Repository
+

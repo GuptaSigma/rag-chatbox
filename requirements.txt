@@ -1,0 +1,12 @@
+fastapi
+uvicorn
+sentence-transformers
+faiss-cpu
+numpy
+pydantic
+pypdf
+langchain-text-splitters
+python-multipart
+google-genai
+python-dotenv
+rank-bm25
