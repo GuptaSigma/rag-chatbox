@@ -1,8 +1,10 @@
+from langgraph_rag import rag_graph
 from fastapi import FastAPI, HTTPException, UploadFile, File
 from pydantic import BaseModel
-from typing import List, Optional
 from rag_engine import rag
+from typing import Optional
 
+from langgraph_rag import rag_graph
 app = FastAPI(title="Enterprise RAG Engine API", version="4.0")
 
 class AdvancedQueryRequest(BaseModel):
@@ -37,19 +39,19 @@ def search_hybrid(payload: AdvancedQueryRequest):
 
 @app.post("/ask-ai")
 def ask_ai(payload: AdvancedQueryRequest):
-    retrieved_docs = rag.hybrid_search(payload.query, payload.k, payload.doc_filter)
-    if not retrieved_docs:
-        raise HTTPException(status_code=400, detail="No documents available in database.")
-    
-    ai_answer = rag.generate_answer(payload.query, retrieved_docs)
-    
+    initial_state={
+        "query":payload.query,
+        "retrieved_docs":[],
+        "answer":"",
+        "confidence":0.0
+    }
+    result = rag_graph.invoke(initial_state)
+
     return {
         "query": payload.query,
-        "answer": ai_answer,
-        "sources": [
-            {"doc": d["doc_name"], "page": d["page"], "snippet": d["text"][:100] + "..."} 
-            for d in retrieved_docs
-        ]
+        "answer": result["answer"],
+        "confidence": result["confidence"],
+        "retrieved_docs": result["retrieved_docs"]
     }
 
 @app.delete("/clear-db")
